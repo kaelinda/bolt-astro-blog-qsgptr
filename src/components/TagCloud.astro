@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const tags = [...new Set(posts.map(post => post.data.tags).flat())];
+---
+
+<div class="mb-8">
+  <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tags</h2>
+  <div class="flex flex-wrap gap-2">
+    {tags.map(tag => (
+      <a
+        href={`/tags/${tag}`}
+        class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+      >
+        #{tag}
+      </a>
+    ))}
+  </div>
+</div>
